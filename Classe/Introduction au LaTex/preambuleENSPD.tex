@@ -1,0 +1,245 @@
+\documentclass[a4paper,12pt,mathserif]{report}
+\title{\bf COURS: Analyse Mathématique et Algèbre }
+\usepackage[utf8]{inputenc}
+\usepackage[latin1]{inputenc}
+%\usepackage{t1enc}
+\usepackage{amsfonts,amssymb,amsthm,amsmath,amscd,mathrsfs,latexsym}
+\usepackage{array,float,graphicx,pifont,textcomp}
+\usepackage{eucal,rotating}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\setcounter{secnumdepth}{4}% profondeur de la numérotation
+%------------------------------interligne verticale---------------------------
+\onehalfspacing 
+\makeatletter 
+\newcommand{\LyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\spacefactor1000} 
+\makeatother
+\usepackage[table]{xcolor}
+\usepackage{color}
+\usepackage{multirow}
+%\addtolength{\textwidth}{2.5cm}%1.6avant
+%\addtolength{\voffset}{-1.5cm}
+%\addtolength{\textheight}{2.5cm}
+\definecolor{couleurliens}{rgb}{0.,0.,1} % for sections, subsections and equations
+\definecolor{couleurliensref}{rgb}{0.1,0.,0.9} % for book and paper
+\definecolor{couleurliensurl}{rgb}{.3,.4,.3} % for internet references
+\usepackage[pdftex=true,hyperindex=true,pdfmenubar=true,bookmarks=true,pdftoolbar=true]{hyperref}%
+\hypersetup{colorlinks,citecolor=red,linkcolor=blue,urlcolor=black}%permet de choisir la couleur des equation, refrence ...
+%%################################################################################################################
+\frenchspacing  \linespread{1.5}%1.5avant
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+%\usepackage[dvips]{epsfig}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{ctable}
+%\usepackage{t1enc}
+%\setlength{\unitlength}{1mm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[french]{babel}
+\usepackage[french]{minitoc}
+\setcounter{minitocdepth}{4}
+\usepackage{float}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\newcommand{\thechapterwords}
+%{ \ifcase \thechapter\or Z\'ero\or Un\or Deux\or Trois\or Quatre\or
+{ \ifcase \thechapter\or Un\or Deux\or Trois\or Quatre\or
+	Cinq\or Six\or Sept \or Huit\or Neuf\or Dix\or Onze\fi}
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\def\@makechapterhead#1{%
+	\vspace*{10\p@}%
+	{\parindent \z@ \centering \reset@font
+		\thickhrulefill\quad
+		\scshape \@chapapp{} \thechapterwords
+		\quad \thickhrulefill
+		\par\nobreak
+		\vspace*{10\p@}%
+		\interlinepenalty\@M
+		\hrule
+		\vspace*{10\p@}%
+		\Huge \bfseries #1\par\nobreak
+		\par
+		\vspace*{10\p@}%
+		\hrule
+		\vskip 35\p@
+	}}
+	\def\@makeschapterhead#1{%
+		\vspace*{10\p@}%
+		{\parindent \z@ \centering \reset@font
+			\thickhrulefill
+			\par\nobreak
+			\vspace*{10\p@}%
+			\interlinepenalty\@M
+			\hrule
+			\vspace*{10\p@}%
+			\Huge \bfseries #1\par\nobreak
+			\par
+			\vspace*{10\p@}%
+			\hrule
+			\vskip 35\p@%\vskip 60\p@
+			%\vskip 100\p@
+		}}
+		\def\@makechapterhead#1{%
+			%\vspace*{50\p@}%
+			\vspace*{10\p@}%
+			{\parindent \z@ \centering \reset@font
+				\thickhrulefill\quad
+				\scshape \@chapapp{} \thechapterwords
+				\quad \thickhrulefill
+				\par\nobreak
+				\vspace*{10\p@}%
+				\interlinepenalty\@M
+				\hrule
+				\vspace*{10\p@}%
+				\Huge \bfseries #1\par\nobreak
+				\par
+				\vspace*{10\p@}%
+				\hrule
+				\vskip 35\p@
+				%\vskip 100\p@
+			}}
+			\frenchspacing \pagestyle{headings}
+			%%############################################################################################``
+			\usepackage{fancyhdr}
+			\pagestyle{fancy}
+			
+			\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+			\fancyhf{} % supprime les en-t?tes et pieds pr?d?finis
+			\fancyhead[L,R]{\bfseries\thepage}%% 
+			\fancyhead[LO,RE]{\bfseries\rightmark} %%Left Odd, Right Even
+			\fancyhead[RO,LE]{\bfseries\leftmark} %% Right Odd, Left Even
+			\renewcommand{\headrulewidth}{1pt}%% filet en haut de page
+			\addtolength{\headheight}{14pt} %% espace pour le filet (avant on avait 1pt
+			\renewcommand{\footrulewidth}{1.5pt}%% filet en bas de page
+			%\addtolength{\footheight}{0.5pt} % espace pour le filet en bas
+			\fancypagestyle{plain}{ % pages de tetes de chapitre
+				\fancyhead{} % supprime l'entete
+				%\fancyfoot{} %supprime le pied de page
+				\renewcommand{\headrulewidth}{0pt}
+			}
+			\newcommand{\clearemptydoublepage}{%
+				\newpage{\pagestyle{plain}\cleardoublepage}}
+			
+	%###########################################################################################
+			\fancyfoot[LE,RO]{\tiny \textbf{Dr. Fulbert ALLOGNISSODE \copyright \  GMP, GC, GE-INSTI, 2023-2024}}
+			\fancyfoot[LO,RE]{\tiny \emph{\bf{Analyse Mathématique et Algèbre}}}
+			
+			\rhead{\textbf{\thepage}}
+			\lhead{\textsl{\leftmark}}
+			\usepackage{newlfont}
+			
+			\hfuzz2pt
+			\newlength{\defbaselineskip}
+			\setlength{\defbaselineskip}{\baselineskip}
+			\newenvironment{pre}[1][Preuve]{\textbf{#1.} }{\quad \rule{0.5em}{0.5em}}
+			\newenvironment{algo}[1][Algorithme]{\textbf{\\#1\\}}{\\}
+			\theoremstyle{plain}
+			\newtheorem{thm}{Théorème}[section]
+			%\newtheorem{pre}[thm]{Preuve}
+			\newtheorem{cor}[thm]{Corollaire}
+			\newtheorem{lem}[thm]{Lemme}
+			\newtheorem{pro}[thm]{Proposition}
+			\newtheorem{prodf}[thm]{Proposition et Définition}
+			\newtheorem{pp}[thm]{Propriété}
+			\newtheorem{df}[thm]{Définition}
+			\newtheorem{rap}{Rappel}[chapter]
+			\newtheorem{rmq}[thm]{Remarque}
+			\newtheorem{rmqdf}[thm]{Remarque et Définition}
+			\newtheorem{ex}[thm]{Exemple}
+			\newtheorem{exer}[thm]{Exercice}
+			\newtheorem{exs}[thm]{Exemples}
+			\newtheorem{exdf}[thm]{Exemple et Définition}
+			\newtheorem{nota}[thm]{Notations}
+			%\newtheorem{itz}{itemize}
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			\newcommand{\la}{\lambda}
+			\newcommand{\La}{\Lambda}
+			\newcommand{\al}{\alpha}
+			\newcommand{\si}{\sigma}
+			\newcommand{\Si}{\Sigma}
+			\newcommand{\ga}{\gamma}
+			\newcommand{\Ga}{\Gamma}
+			\newcommand{\be}{\beta}
+			\newcommand{\te}{\theta}
+			\newcommand{\de}{\delta}
+			\newcommand{\De}{\Delta}
+			%\newcommand{\pas}{\partial}
+			\newcommand{\mbb}{\mathbb}
+			\newcommand{\mbf}{\mathbf}
+			\newcommand{\mc}{\mathcal}
+			\newcommand{\mf}{\mathfrak}
+			\newcommand{\mi}{\mathit}
+			\newcommand{\bnota}{\begin{nota}}
+				\newcommand{\enota}{\end{nota}}
+			\newcommand{\ms}[1]{\mathsf{#1}}
+			\newcommand{\bs}{\symbol{92}}
+			%\newcommand{\na}{\nabla}
+			%\newcommand{\noi}{\noindent}
+			%\newcommand{\nonb}{\nonumber}
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%			\newcommand{\u}{\overrightarrow{u}}
+%			\newcommand{\v}{\overrightarrow{v}}
+%			\newcommand{\w}{\overrightarrow{w}}
+			\newcommand{\N}{\mathbb{N}}
+			\newcommand{\E}{\mathbb{E}}
+			\newcommand{\V}{\mathbb{V}}
+			\newcommand{\Z}{\mathbb{Z}}
+			\newcommand{\K}{\mathbb{K}}
+			\newcommand{\A}{\mathbb{A}}
+			\newcommand{\Q}{\mathbb{Q}}
+			\newcommand{\R}{\mathbb{R}}
+			\newcommand{\C}{\mathbb{C}}
+			\newcommand{\fo}{\mathcal{O}}
+			\newcommand{\T}{\mathcal{T}}
+			
+			\theoremstyle{plain}
+			\linespread{1}
+			
+
+\begin{document}
+\section{Premier cours}
+\begin{enumerate}
+\item NOM
+\begin{enumerate}
+\item{d} AKPAKI
+ \item MOUSSA 
+\item AHMAD
+ \item GOUNOU SEKE
+ \item 
+\end{enumerate}
+\item prenom
+\begin{enumerate}
+\item kamila
+\item abdoul baki
+\end{enumerate}
+\item pseudo
+\item contacte
+\end{enumerate}
+
+\begin{table}[htbp!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+& & & & & \\\hline
+& & & & & \\\cline{1-1}\cline{5-6}
+& & & & & \\\hline
+& & & & &\\\hline
+
+\multirow{<2>}{|c|}
+
+ 
+
+\caption
+\label{Le titre du tableau}
+\end{table}
+\begin{figure}
+\centering
+\includegraphics[]{bbc.jpg}
+\caption{photo de salle}
+\end{figure}
+\end{document}

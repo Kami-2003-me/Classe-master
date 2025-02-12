@@ -1,0 +1,6 @@
+Engrais	Irrigation	Type_de_sol	Rendement
+50	100	1	1.8
+60	120	0	2
+70	110	1	2.3
+80	130	1	2.7
+90	140	0	2.9
