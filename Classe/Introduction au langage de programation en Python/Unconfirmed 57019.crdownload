@@ -1,0 +1,149 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Feb 15 08:46:26 2025
+
+@author: jeank
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+def some(X): 
+    L = np.array(X)
+    som = 0
+    for i in range(len(L)):
+        som+= L[i] # som = som + L[i]
+    return som
+
+L = [1, 2, 0, -5, 7, 10]
+
+print(some(L))
+
+# Calcul de la moyenne
+
+def moy(L):
+    return some(L)/len(L)
+
+
+
+print(moy(L)) 
+
+
+def vari(X):
+    som = 0
+    L = np.array(X)
+    for i in range(len(L)):
+        som+=(L[i]-moy(L))**2
+    return som/len(L)
+
+print(vari(L))
+
+# Calcul de covariance cov(X,Y)
+def covar(X, Y):
+    L1 = np.array(X)
+    L2 = np.array(Y)
+    som = 0 
+    for i in range(len(L1)):
+        som = som + (L1[i] - moy(L1))*(L2[i] - moy(L2))
+        i+=1
+    return som/len(L1)
+
+
+L = [1, 2, 0, -5, 7, 10]
+
+T = [5, 10, 11, -15, 20, 25]    
+
+print(covar(L, T))
+
+# Calcul du coefficient de correlation
+
+
+def corr(X,Y):
+    return covar(X, Y)/np.sqrt(vari(X)*vari(Y))
+print('r = ' ,corr(L,T))
+
+# Interprétation du coefficient
+
+def interp(X, Y): 
+    r = np.absolute(corr(X, Y))
+    if 0<= r < 0.5:
+        return " X et Y sont linéairement indépendantes"
+    if 0.5<= r < 0.85:
+        return ' Il y a une faible corrélation linéaire entre X et Y '
+    if 0.85 <= r < 1:
+        return ' Il y a une forte corrélation linéaire entre X et Y '
+    if r==1:
+        return ' Les variables X et Y sont linéairement dépendantes '
+    else:
+        return 'Votre coefficient est mal calculé'
+
+print(interp(L, T))
+
+# calcul du coefficient directeur 
+
+def coeffd(X,Y):
+    return covar(X, Y)/vari(X)
+
+    
+# Calcul de l'ordonnée à l'origine
+
+def ordori(X, Y):
+    return moy(Y)-coeffd(X, Y)*moy(X)
+
+
+
+# La droite de regression de y en x. 
+
+def droityx(X, Y, x):
+    return (covar(X, Y)/vari(X))*x+(moy(Y)-(covar(X, Y)/vari(X))*moy(X))
+
+# La droite de regression de x en y    
+def droitxy(X, Y, x):
+    return (covar(X, Y)/vari(Y))*x+(moy(X)-(covar(X, Y)/vari(Y))*moy(Y))
+
+
+
+def nuagej(X, Y):
+ #   import numpy as np
+ #   import matplotlib.pyplot as plt
+    
+  #  X = [float(x) for x in X if Les_reels(x)]
+  #  Y = [float(y) for y in Y if Les_reels(y)]
+   # print(X, Y)
+    plt.scatter(X, Y, color='blue') # Points de données réels (nuage)
+    # Fonction de droite de y en x
+    def f1(x): 
+        return droityx(X, Y, x) 
+    x = np.linspace(min(X), max(X), 10)
+    Y_pred = f1(x)
+    # Fonction de droite de X en Y
+    def f2(y):
+        return droitxy(X, Y, y)
+    y = np.linspace(min(Y), max(Y), 10)
+    X_pred = f1(y)
+    plt.plot(x, Y_pred, color='red') # Ligne de régression
+   # plt.plot(X_pred, y, color='blue') # Ligne de régression
+    plt.xlabel('Variable X')
+    plt.ylabel('Variable Y')
+    plt.title('Régression Linéaire')
+    plt.show()
+
+
+nuagej(L, T)
+
+
+"""
+#plt.scatter(L, T) # représentation du nuage. 
+
+plt.title('Nuage de points')
+
+plt.xlabel(' Axe de L')
+
+plt.ylabel('Axe de T')
+
+#plt.plot(L,T)
+plt.show()
+
+"""
+
+
