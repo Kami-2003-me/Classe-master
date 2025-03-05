@@ -1,0 +1,13 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Statistiques descriptives bivariées}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Analyse de la liaison entre deux variables qualitatives}{1}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Représentations graphiques usuelles}{1}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Tableaux de distribution statistique}{2}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Profils-lignes et Profils-colonnes}{2}{subsubsection.2.1.3}%
+\contentsline {paragraph}{Profil ligne.}{2}{section*.4}%
+\contentsline {paragraph}{Profil colonne.}{2}{section*.5}%
+\contentsline {subsection}{\numberline {2.2}Tests statistiques et mesures de liaison}{2}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Test d'indépendance de Khi-deux}{2}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Coefficient de Cramer}{2}{subsubsection.2.2.2}%
+\contentsline {section}{\numberline {3}Conclusion}{2}{section.3}%

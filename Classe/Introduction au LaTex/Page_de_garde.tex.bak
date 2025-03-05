@@ -1,0 +1,36 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{lipsum}
+
+\geometry{top=2cm, bottom=2cm, left=2.5cm, right=2.5cm}
+
+\begin{document}
+
+\begin{center}
+    \textbf{REPUBLIQUE DU BENIN} \\
+    \rule{10cm}{0.5mm} \\[0.5cm]
+    \textbf{UNIVERSITE DE PARAKOU} \\
+    \rule{10cm}{0.5mm} \\[0.5cm]
+    \textbf{ECOLE NATIONALE DE STATISTIQUE, DE PLANIFICATION ET DE DEMOGRAPHIE (ENSPD)} \\
+    \rule{10cm}{0.5mm} \\[1.5cm]
+    
+    \Huge \textbf{SOUTENANCE DE FIN D'ÉTUDES} \\[0.5cm]
+    \Huge \textbf{EN PLANIFICATION ET SUIVI-ÉVALUATION} \\[2cm]
+    
+    \Large \textbf{Présenté par :} \\[0.3cm]
+    \LARGE \textbf{Kamila H. Chimè nè AKPAKI} \\[2cm]
+    
+    \Large \textbf{Encadrant :} \\[0.3cm]
+    \LARGE \textbf{Ph.D. Gèorgè DJOHY} \\[2cm]
+    
+    \Large \textbf{Date :} 2 juillet 2025 \\[1cm]
+    
+    \Huge \textbf{Optimisation des Méthodes de Suivi-Évaluation dans les Projets de Développement} \\[2cm]
+    
+    \includegraphics[width=5cm]{aa.jpg} % Insérer un logo si nécessaire
+    
+\end{center}
+
+\end{document}
