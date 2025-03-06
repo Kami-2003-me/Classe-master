@@ -1,0 +1,138 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+
+
+% Définition du style pour le code R
+\lstdefinestyle{Rstyle}{
+    language=R,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green},
+    stringstyle=\color{red},
+    breaklines=true,
+    frame=single,
+    captionpos=b
+}
+
+\title{\textbf{Impact des valeurs aberrantes sur une régression linéaire}}
+\author{Université XYZ}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Les valeurs aberrantes sont des observations qui s'écartent fortement des autres données. Elles peuvent fausser les estimations des paramètres et conduire à des erreurs de prédiction importantes. Cette étude examine leur impact sur une régression linéaire expliquant le \textit{Salaire} en fonction de l'\textit{Expérience} et de l'\textit{Éducation}.
+
+\section{Présentation des données}
+Nous utilisons un jeu de données hypothétique contenant 500 observations avec les variables suivantes :
+\begin{itemize}
+    \item \textbf{Salaire} : revenu annuel en milliers d'euros.
+    \item \textbf{Expérience} : nombre d'années d'expérience.
+    \item \textbf{Éducation} : nombre d'années d'études après le secondaire.
+\end{itemize}
+
+Exemple de données :
+\begin{center}
+    \begin{tabular}{ccc}
+    \toprule
+    Salaire (k€) & Expérience (années) & Éducation (années) \\
+    \midrule
+    25  & 2  & 5  \\
+    40  & 5  & 6  \\
+    120 & 15 & 10 \\
+    \textbf{300} & \textbf{4} & \textbf{3} \\
+    35  & 3  & 5  \\
+    \bottomrule
+    \end{tabular}
+\end{center}
+
+\section{Détection des valeurs aberrantes}
+
+\subsection{Méthodes graphiques}
+\begin{itemize}
+    \item \textbf{Boxplot} : permet d'identifier visuellement les valeurs extrêmes.
+    \item \textbf{Diagramme de dispersion} : met en évidence les observations éloignées.
+\end{itemize}
+
+\subsection{Méthodes statistiques}
+\begin{itemize}
+    \item \textbf{Distance interquartile (IQR)} :
+    \begin{equation}
+        \text{Valeurs aberrantes} \in [Q1 - 1.5 IQR, Q3 + 1.5 IQR]
+    \end{equation}
+    \item \textbf{Z-score} : une observation est aberrante si son Z-score est supérieur à 3.
+\end{itemize}
+
+\section{Impact sur la régression}
+Nous estimons le modèle suivant :
+\begin{equation}
+    Salaire_i = \beta_0 + \beta_1 Experience_i + \beta_2 Education_i + \varepsilon_i
+\end{equation}
+
+\subsection{Comparaison des méthodes de traitement}
+\begin{center}
+    \begin{tabular}{lccc}
+    \toprule
+    Méthode & Effet sur les coefficients & Avantages & Inconvénients \\
+    \midrule
+    Suppression des outliers & Coefficients plus stables & Facile à interpréter & Perte d'information \\
+    Transformation logarithmique & Réduction des valeurs extrêmes & Utile pour asymétrie & Moins efficace pour grandes valeurs \\
+    Régression robuste & Estimations plus fiables & Gère bien les outliers & Plus complexe à implémenter \\
+    \bottomrule
+    \end{tabular}
+\end{center}
+
+\section{Application en R}
+Le code suivant permet de générer les données et d'appliquer différentes méthodes de détection et de correction des valeurs aberrantes.
+
+\subsection{Chargement des bibliothèques et génération des données}
+\begin{lstlisting}[style=Rstyle, caption=Génération des données]
+install.packages(c("ggplot2", "dplyr", "MASS", "car"))
+library(ggplot2)
+library(dplyr)
+library(MASS)
+library(car)
+
+set.seed(123)
+n <- 500
+data <- data.frame(
+  Experience = runif(n, 1, 20),
+  Education = sample(3:10, n, replace = TRUE),
+  Salaire = 25 + 3 * runif(n, 1, 20) + 2 * sample(3:10, n, replace = TRUE) + rnorm(n, 0, 5)
+)
+data$Salaire[c(10, 50, 100)] <- c(150, 300, 500)
+head(data)
+\end{lstlisting}
+
+\subsection{Détection des valeurs aberrantes}
+\begin{lstlisting}[style=Rstyle, caption=Détection des valeurs aberrantes]
+Q1 <- quantile(data$Salaire, 0.25)
+Q3 <- quantile(data$Salaire, 0.75)
+IQR <- Q3 - Q1
+seuil_inf <- Q1 - 1.5 * IQR
+seuil_sup <- Q3 + 1.5 * IQR
+data$outlier_iqr <- ifelse(data$Salaire < seuil_inf | data$Salaire > seuil_sup, TRUE, FALSE)
+\end{lstlisting}
+
+\subsection{Régression linéaire et robuste}
+\begin{lstlisting}[style=Rstyle, caption=Régression et impact des outliers]
+model1 <- lm(Salaire ~ Experience + Education, data = data)
+summary(model1)
+data_clean <- data[!data$outlier_iqr, ]
+model2 <- lm(Salaire ~ Experience + Education, data = data_clean)
+summary(model2)
+model3 <- rlm(Salaire ~ Experience + Education, data = data)
+summary(model3)
+\end{lstlisting}
+
+\section{Conclusion}
+Les valeurs aberrantes faussent les estimations et augmentent les erreurs de prédiction. La suppression ou l'utilisation de méthodes robustes permet d'améliorer la fiabilité du modèle. 
+
+\end{document}

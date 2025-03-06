@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, graphicx}
+\usepackage{hyperref}
+
+\title{R\'egression Lin\'eaire en R}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+La r\'egression lin\'eaire est une m\'ethode statistique permettant de mod\'eliser la relation entre une variable d\'ependante ($Y$) et une ou plusieurs variables explicatives ($X$). Elle repose sur plusieurs hypoth\`eses fondamentales et permet d'effectuer des pr\'edictions et d'analyser l'influence des variables explicatives sur la variable cible.
+
+Il existe deux types principaux de r\'egression lin\'eaire :
+\begin{itemize}
+    \item \textbf{R\'egression lin\'eaire simple} : Une seule variable explicative ($X$).
+    \item \textbf{R\'egression lin\'eaire multiple} : Plusieurs variables explicatives ($X_1, X_2, ..., X_p$).
+\end{itemize}
+
+Dans ce cours, nous allons utiliser \textbf{R} pour illustrer ces concepts avec un exemple appliqu\'e en agriculture.
+
+\section{R\'egression Lin\'eaire Simple}
+\subsection{Importation des donn\'ees}
+Nous utilisons un fichier de donn\'ees contenant des observations sur le rendement agricole ($Y$) en fonction de la quantit\'e d'engrais appliqu\'ee ($X$).
+
+\begin{verbatim}
+# Importation des donn\'ees
+RLS <- read.table(file.choose(), header=TRUE)
+attach(RLS)
+names(RLS)  # Afficher les noms des variables
+\end{verbatim}
+
+\subsection{Visualisation des donn\'ees}
+Avant d'ajuster le mod\`ele, nous affichons un nuage de points pour observer la relation entre les variables :
+
+\begin{verbatim}
+plot(Rendement ~ Engrais, xlab="Engrais (Kg/ha)", ylab="Rendement (t/ha)")
+\end{verbatim}
+
+\subsection{Ajustement du mod\`ele}
+Nous utilisons la fonction \texttt{lm()} pour ajuster une r\'egression lin\'eaire simple :
+
+\begin{verbatim}
+# Estimation des param\`etres du mod\`ele
+modele1 <- lm(Rendement ~ Engrais)
+summary(modele1)  # Afficher les r\'esultats du mod\`ele
+\end{verbatim}
+
+\subsection{Visualisation de la droite de r\'egression}
+Nous tra\c cons la droite ajust\'ee sur le nuage de points :
+
+\begin{verbatim}
+plot(Rendement ~ Engrais, xlab="Engrais (Kg/ha)", ylab="Rendement (t/ha)")
+abline(modele1, col="blue")
+\end{verbatim}
+
+\subsection{Validation du Mod\`ele}
+\subsubsection{Test de normalit\'e des r\'esidus}
+\begin{verbatim}
+par(mfrow=c(1,2))
+hist(residuals(modele1), main="Histogramme des r\'esidus")
+qqnorm(resid(modele1))
+qqline(resid(modele1), lty=2, col="blue")
+shapiro.test(resid(modele1))  # Test de Shapiro-Wilk
+\end{verbatim}
+
+\subsubsection{Test de l'homog\'en\'eit\'e des r\'esidus}
+\begin{verbatim}
+library(lmtest)
+plot(residuals(modele1) ~ fitted(modele1), xlab="Valeurs pr\'edites", ylab="R\'esidus")
+bptest(modele1)  # Test de Breusch-Pagan
+\end{verbatim}
+
+\subsubsection{Test d'autocorr\'elation des r\'esidus}
+\begin{verbatim}
+library(lmtest)
+dwtest(modele1)  # Test de Durbin-Watson
+\end{verbatim}
+
+\section{R\'egression Lin\'eaire Multiple}
+\subsection{Importation et Visualisation des donn\'ees}
+Nous incluons ici plusieurs variables explicatives ($Engrais, Irrigation, Type\_de\_sol$).
+
+\begin{verbatim}
+RLM <- read.table(file.choose(), header=TRUE)
+attach(RLM)
+pairs(RLM)  # Matrice de dispersion
+\end{verbatim}
+
+\subsection{Ajustement du Mod\`ele}
+
+\begin{verbatim}
+modele2 <- lm(Rendement ~ Engrais + Irrigation + Type_de_sol)
+summary(modele2)
+\end{verbatim}
+
+\subsection{Validation du Mod\`ele}
+\subsubsection{Test de normalit\'e des r\'esidus}
+\begin{verbatim}
+par(mfrow=c(1,2))
+hist(residuals(modele2), main="Histogramme des r\'esidus")
+qqnorm(resid(modele2))
+qqline(resid(modele2), lty=2, col="blue")
+shapiro.test(resid(modele2))
+\end{verbatim}
+
+\subsubsection{Test de l'homog\'en\'eit\'e des r\'esidus}
+\begin{verbatim}
+plot(residuals(modele2) ~ fitted(modele2), xlab="Valeurs pr\'edites", ylab="R\'esidus")
+bptest(modele2)
+\end{verbatim}
+
+\subsubsection{Test de multicolin\'earit\'e}
+\begin{verbatim}
+library(car)
+vif(modele2)  # Facteur d'inflation de la variance
+\end{verbatim}
+
+\subsection{Conclusion}
+La r\'egression lin\'eaire est un outil puissant pour analyser les relations entre variables quantitatives. Les tests de validation sont essentiels pour s'assurer que les hypoth\`eses du mod\`ele sont respect\'ees.
+
+\textbf{Extensions possibles} :
+\begin{itemize}
+    \item R\'egression polynomiale
+    \item R\'egression logistique
+    \item R\'egression ridge et lasso
+\end{itemize}
+
+Ces techniques permettent d'affiner les mod\`eles et de mieux capturer les relations complexes entre les variables.
+
+\end{document}
+
